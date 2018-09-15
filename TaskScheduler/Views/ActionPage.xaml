@@ -1,0 +1,120 @@
+﻿
+    
+<Page
+    x:Class="TaskScheduler.ActionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskScheduler"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:TaskScheduler.ViewModels"
+    xmlns:con="using:System.Windows.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Action" FontSize="24" VerticalAlignment="Center" TextAlignment="Center"/>
+            <ComboBox x:Name="ActionBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" SelectionChanged="ActionBox_SelectionChanged">
+                <ComboBoxItem>URI</ComboBoxItem>
+                <ComboBoxItem>Notification</ComboBoxItem>
+                <ComboBoxItem>Application</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+
+        <FlipView x:Name="FlipView" Grid.Row="2">
+            <FlipViewItem ManipulationMode="None">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="32*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="URI" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Margin="0,8,0,7.667" Grid.Row="0"/>
+                    <TextBox x:Name="URIBox" InputScope="Url" Grid.Column="1" Grid.ColumnSpan="2"/>
+                </Grid>
+            </FlipViewItem>
+            <FlipViewItem ManipulationMode="None">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="23*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Text" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+                    <TextBox x:Name="TextBox" Grid.Column="1" Grid.RowSpan="3"/>
+
+                    <TextBlock Text="Image" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="4"/>
+                    <Grid Grid.Row="4" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ImageBox" InputScope="Url"/>
+                        <Button Grid.Column="1" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Right" Click="Button_Click">
+                            <SymbolIcon Symbol="OpenFile"/>
+                        </Button>
+                    </Grid>
+
+                    <TextBlock Text="Audio" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="6"/>
+                    <ComboBox x:Name="AudioBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="1">
+                    </ComboBox>
+
+                    <TextBlock Text="Timeout" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="8"/>
+                    <TextBox x:Name="TimeoutBox" InputScope="Number" TextAlignment="Right" Grid.Column="1" Grid.Row="8"/>
+                </Grid>
+            </FlipViewItem>
+            <FlipViewItem ManipulationMode="None">
+                <Grid>
+                    <ProgressRing x:Name="LoadingRing" Visibility="Visible" MinWidth="50" MinHeight="50" IsActive="True"></ProgressRing>
+                    <ListView x:Name="LoadedContent" Visibility="Collapsed">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="vm:AppEntry">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="5*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{x:Bind Logo}"/>
+                                    <TextBlock Text="{x:Bind Name}" FontSize="24" Style="{StaticResource BaseTextBlockStyle}" Grid.Column="2"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </FlipViewItem>
+        </FlipView>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Save" Label="Save" Click="AppBarButton_Save"/>
+            <AppBarButton Icon="Delete" Label="Delete" Click="AppBarButton_Delete"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

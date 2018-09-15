@@ -1,0 +1,53 @@
+﻿
+
+<!--<Page x:Name="TetingPageAAA" >
+    <TextBlock Text="AAAAABBSDHSBDJSABSNDKANS" />
+</Page>-->
+<Page
+    x:Class="TaskScheduler.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskScheduler"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:TaskScheduler.Models" 
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Grid>
+        <ListView ItemsSource="{x:Bind JobsList}" ItemClick="ListView_ItemClick" SelectionMode="None" IsItemClickEnabled="True">
+            <ListView.Header>
+                <ListViewHeaderItem HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <TextBlock Text="Active Tasks" TextAlignment="Center" FontSize="32" />
+                </ListViewHeaderItem>
+            </ListView.Header>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate x:Name="SingleLineDataTemplate" x:DataType="model:Job">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{x:Bind Name}" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+                        <TextBlock Text="{x:Bind Cron}" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.Items>
+            </ListView.Items>
+        </ListView>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar VerticalAlignment="Bottom">
+            <AppBarButton Icon="Add" Label="Add task" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
